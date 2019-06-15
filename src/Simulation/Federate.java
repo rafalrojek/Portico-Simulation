@@ -17,6 +17,7 @@ public abstract class Federate implements Runnable{
     /** The sync point all federates will sync up on before starting */
     public static final String READY_TO_RUN = "ReadyToRun";
 
+
     //----------------------------------------------------------
     //                   INSTANCE VARIABLES
     //----------------------------------------------------------
@@ -33,7 +34,7 @@ public abstract class Federate implements Runnable{
     /**
      * This is just a helper method to make sure all logging it output in the same form
      */
-    protected void log( String message ) { System.out.println( "GUIFederate   : " + message ); }
+    protected void log( String message ) { System.out.println( name + " : " + message ); }
 
     /**
      * This method will block until the user presses enter
@@ -78,14 +79,14 @@ public abstract class Federate implements Runnable{
         ////////////////////////////
         // enable time regulation //
         ////////////////////////////
-		/*this.rtiamb.enableTimeRegulation( currentTime, lookahead );
+		this.rtiamb.enableTimeRegulation( currentTime, lookahead );
 
 		// tick until we get the callback
 		while( fedamb.isRegulating == false )
 		{
 			rtiamb.tick();
 		}
-		*/
+
         /////////////////////////////
         // enable time constrained //
         /////////////////////////////
@@ -117,7 +118,7 @@ public abstract class Federate implements Runnable{
         // NOTE: some other federate may have already created the federation,
         //       in that case, we'll just try and join it
         try {
-            File fom = new File( "tramfom.fed" );
+            File fom = new File( "fom" );
             rtiamb.createFederationExecution( federationName,
                     fom.toURI().toURL() );
             log( "Created Federation" );
@@ -210,7 +211,7 @@ public abstract class Federate implements Runnable{
     }
 
     protected abstract void setAmbassador();
-    protected abstract void runFederateLogic();
+    protected abstract void runFederateLogic() throws RTIexception;
     protected abstract void publishAndSubscribe() throws RTIexception;
 
     ////////////////////////////////////////////////////////////////////////////
