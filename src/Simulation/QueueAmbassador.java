@@ -24,6 +24,7 @@ public class QueueAmbassador extends Ambassador {
 
             switch(interactionName) {
                 case Interaction.NEW_CAR_APPEARED : {
+                    System.out.println("Bingo!");
                     int idCar = Integer.parseInt(EncodingHelpers.decodeString(theInteraction.getValue(0)));
                     String oil = EncodingHelpers.decodeString(theInteraction.getValue(1));
                     boolean isWashing = Boolean.parseBoolean(EncodingHelpers.decodeString(theInteraction.getValue(2)));

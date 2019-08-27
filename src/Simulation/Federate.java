@@ -10,6 +10,12 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 
 public abstract class Federate implements Runnable{
+
+    public Federate() {
+        if (true) {
+
+        }
+    }
     //----------------------------------------------------------
     //                    STATIC VARIABLES
     //----------------------------------------------------------
@@ -26,6 +32,7 @@ public abstract class Federate implements Runnable{
     protected String name;
     protected boolean endOfSimulation = false;
     protected String federationName;
+    protected boolean isTimeEnabled = true;
 
     //----------------------------------------------------------
     //                    INSTANCE METHODS
@@ -79,6 +86,7 @@ public abstract class Federate implements Runnable{
         ////////////////////////////
         // enable time regulation //
         ////////////////////////////
+
 		this.rtiamb.enableTimeRegulation( currentTime, lookahead );
 
 		// tick until we get the callback
@@ -236,7 +244,7 @@ public abstract class Federate implements Runnable{
 
         // wait for the time advance to be granted. ticking will tell the
         // LRC to start delivering callbacks to the federate
-        while( fedamb.isAdvancing ) rtiamb.tick();
+        if (isTimeEnabled) while( fedamb.isAdvancing ) rtiamb.tick();
     }
 
     @Override
